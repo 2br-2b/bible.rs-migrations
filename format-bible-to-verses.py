@@ -19,11 +19,14 @@ INSERT INTO words VALUES(5,1,1,1,1,4,'created',NULL,0,0,0); """
 
 
 import os
+from itertools import islice
 newlines = 0
 currently_in_verse = False
 
-book = -3
+book = 1
 chapter = 1
+last_chapter = 0
+last_verse = 0
 
 bible_file = open("pg8300.txt", "rt")
 # The output is given as a csv, but the only seperators should be {s
@@ -37,7 +40,11 @@ seperator = "{"
 output_file.write("book{chapter{verse{text\n")
 output_file.flush()
 
-for line in bible_file:
+# iterBible = iter(bible_file)
+# next(iterBible)
+
+# for line in bible_file[195:]:
+for line in islice(bible_file, 195, None):
     line = line[:len(line) - 1]
 
     if(len(line) == 0):
@@ -59,16 +66,22 @@ for line in bible_file:
         chapter = reference_list[0]
         verse = reference_list[1]
 
+        # (last_chapter > int(chapter) or
+        if (last_verse > int(verse) and last_chapter == 1 and not book == 73):
+            book += 1
+        last_chapter = int(chapter)
+        last_verse = int(verse)
+
         to_write = str(book) + seperator + chapter + seperator + \
             verse + seperator + line[reference_length:]
     elif(currently_in_verse):
         to_write = " " + line
     else:
-        if(newlines == 6):
-            book += 1
-            newlines = 0
-        if(line == "THE NEW TESTAMENT"):
-            book -= 1
+        """ if(newlines == 5):
+             book += 1
+             newlines = 0
+         if(line == "THE NEW TESTAMENT"):
+             book -= 1"""
         if (line == "End of the Project Gutenberg EBook of The Bible, Douay-Rheims, Old and New"):
             break
         continue
