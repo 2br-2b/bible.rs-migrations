@@ -49,10 +49,7 @@ for line in bible_file:
 
         reference_list = reference.split(":")
         chapter = reference_list[0]
-        try:
-            verse = reference_list[1]
-        except IndexError as e:
-            print(line)
+        verse = reference_list[1]
 
         to_write = str(book) + seperator + chapter + seperator + \
             verse + seperator + line[reference_length:]
