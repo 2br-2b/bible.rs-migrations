@@ -77,3 +77,4 @@ for line in bible_file:
     output_file.flush()
 
 output_file.close()
+bible_file.close()
