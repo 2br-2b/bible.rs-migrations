@@ -27,7 +27,10 @@ chapter = 1
 
 bible_file = open("pg8300.txt", "rt")
 # The output is given as a csv, but the only seperators should be {s
-os.remove("output.csv")
+try:
+    os.remove("output.csv")
+except FileNotFoundError:
+    pass
 output_file = open("output.csv", "a")
 seperator = "{"
 
