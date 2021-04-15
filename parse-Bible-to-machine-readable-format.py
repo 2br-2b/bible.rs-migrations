@@ -18,6 +18,7 @@ INSERT INTO words VALUES(4,1,1,1,1,3,'God',NULL,0,0,0);
 INSERT INTO words VALUES(5,1,1,1,1,4,'created',NULL,0,0,0); """
 
 
+import os
 newlines = 0
 currently_in_verse = False
 
@@ -26,8 +27,12 @@ chapter = 1
 
 bible_file = open("pg8300.txt", "rt")
 # The output is given as a csv, but the only seperators should be {s
+os.remove("output.csv")
 output_file = open("output.csv", "a")
 seperator = "{"
+
+output_file.write("book{chapter{verse{text\n")
+output_file.flush()
 
 for line in bible_file:
     line = line[:len(line) - 1]
