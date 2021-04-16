@@ -44,7 +44,7 @@ output_file.flush()
 # next(iterBible)
 
 # for line in bible_file[195:]:
-for line in islice(bible_file, 195, None):
+for line in islice(bible_file, 195, 138076):
     line = line[:len(line) - 1]
 
     if(len(line) == 0):
@@ -77,13 +77,6 @@ for line in islice(bible_file, 195, None):
     elif(currently_in_verse):
         to_write = " " + line
     else:
-        """ if(newlines == 5):
-             book += 1
-             newlines = 0
-         if(line == "THE NEW TESTAMENT"):
-             book -= 1"""
-        if (line == "End of the Project Gutenberg EBook of The Bible, Douay-Rheims, Old and New"):
-            break
         continue
 
     output_file.write(to_write)
